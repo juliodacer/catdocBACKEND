@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/docente")
 @CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin
 public class DocenteController {
     @Autowired
     DocenteService docenteService;
@@ -95,4 +96,36 @@ public class DocenteController {
         docenteService.delete(id);
         return new ResponseEntity(new Message("Docente Eliminado"), HttpStatus.OK);
     }
+
+    @PostMapping("/login")
+    public ResponseEntity<Docente> login(@RequestBody Docente docente) {
+        String tempEmail = docente.getEmail();
+        String tempPass = docente.getPassword();
+        Docente docenteObj = null;
+        if(tempEmail != null && tempPass != null) {
+            docenteObj = docenteService.fetchDocenteByEmailAndPassword(tempEmail, tempPass);
+        }
+        if(docenteObj == null){
+            return new ResponseEntity(new Message("Docente inexistente"), HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity(docenteObj, HttpStatus.OK);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

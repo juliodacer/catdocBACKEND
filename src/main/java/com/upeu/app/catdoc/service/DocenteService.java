@@ -42,4 +42,9 @@ public class DocenteService {
     public boolean existsByName(String name){
         return docenteRepository.existsByName(name);
     }
+
+    public Docente fetchDocenteByEmailAndPassword(String email, String password) {
+        return docenteRepository.findByEmailAndPassword(email, password);
+    }
+
 }
